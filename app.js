@@ -32,9 +32,6 @@ app.use(session({
     store: new FileStore
 }));
 
-//加载路由文件
-routes(app);
-
 // 正常请求的日志
 app.use(expressWinston.logger({
     transports: [
@@ -47,6 +44,9 @@ app.use(expressWinston.logger({
         })
     ]
 }));
+
+//加载路由文件
+routes(app);
 
 // 错误请求的日志
 app.use(expressWinston.errorLogger({
