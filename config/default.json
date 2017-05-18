@@ -1,6 +1,6 @@
 {
   "DEBUG":"dev",
-  "logPath":"log",
+  "logPath":"logs",
   "session": {
     "secret": "myapp",
     "key": "myapp_key",

@@ -1,23 +1,18 @@
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
-var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
+var winston = require('winston');
+var expressWinston = require('express-winston');
 var config = require('./util/config');
 var logger = require('./util/logger');
 var routes = require('./routes');
 var app = express();
 
-//morgan请求日志处理模块
-var accessLogStream = fs.createWriteStream(path.join(config.LOG_PATH,'access.log'));
-morgan.format('app',':method :url :status :remote-addr');
-if(config.DEBUG != "production"){
-    app.use(morgan('app'));
-}
-app.use(morgan('app', {stream: accessLogStream}));
+
 
 //加载express中间件
 app.use(bodyParser.json());
@@ -40,15 +35,38 @@ app.use(session({
 //加载路由文件
 routes(app);
 
+// 正常请求的日志
+app.use(expressWinston.logger({
+    transports: [
+        new (winston.transports.Console)({
+            json: true,
+            colorize: true
+        }),
+        new winston.transports.File({
+            filename: 'logs/success.log'
+        })
+    ]
+}));
+
+// 错误请求的日志
+app.use(expressWinston.errorLogger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            colorize: true
+        }),
+        new winston.transports.File({
+            filename: 'logs/error.log'
+        })
+    ]
+}));
+
 // error handler
-app.use(function(err, req, res, next) {
-  let ret = {};
-  ret.message = err.message;
-  ret.error = req.app.get('env') === 'development' ? err : {};
+app.use(function(err, req, res, next) {;
   res.status(err.status || 500);
-  logger.error(ret);
+  logger.error(err);
   if(config.DEBUG != "production"){
-      res.send(ret);
+      res.send(err);
   }else{
       res.send('internal error');
   }
