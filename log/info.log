@@ -1,0 +1,7 @@
+{"level":"info","message":"test info","timestamp":"2017-05-18T02:09:15.804Z"}
+{"level":"error","message":"test error","timestamp":"2017-05-18T02:09:15.804Z"}
+{"anything":"This is metadata","level":"info","message":"","timestamp":"2017-05-18T02:11:30.014Z"}
+{"level":"error","message":"test error","timestamp":"2017-05-18T02:11:30.014Z"}
+{"level":"info","message":"123","timestamp":"2017-05-18T02:29:34.421Z"}
+{"message":"jdkjfklds is not defined","stack":"ReferenceError: jdkjfklds is not defined\n    at Object.<anonymous> (E:\\github\\express_RESTful\\test\\logger.js:7:5)\n    at Module._compile (module.js:570:32)\n    at Object.Module._extensions..js (module.js:579:10)\n    at Module.load (module.js:487:32)\n    at tryModuleLoad (module.js:446:12)\n    at Function.Module._load (module.js:438:3)\n    at Module.runMain (module.js:604:10)\n    at run (bootstrap_node.js:390:7)\n    at startup (bootstrap_node.js:150:9)\n    at bootstrap_node.js:505:3","level":"error","timestamp":"2017-05-18T02:31:29.593Z"}
+{"message":"Not Found","error":{"status":404},"level":"error","timestamp":"2017-05-18T03:11:27.312Z"}

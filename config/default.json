@@ -1,4 +1,9 @@
 {
   "DEBUG":"dev",
-  "logPath":"log"
+  "logPath":"log",
+  "session": {
+    "secret": "myapp",
+    "key": "myapp_key",
+    "maxAge": 2592000000
+  }
 }
